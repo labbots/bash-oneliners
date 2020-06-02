@@ -7,42 +7,11 @@
 Curated list of useful bash onliner commands and functions.
 
 ## Table of Contents
-- [Terminal](#terminal)
-- [System](#system)
 - [Files & Directory](#files--directory)
 - [Git](#git)
+- [System](#system)
+- [Terminal](#terminal)
 
-## Terminal
-
-Get top 10 used commands from history.
-
-```shell
-history | awk '{CMD[$2]++;count++;}END { for (a in CMD)print CMD[a] " " CMD[a]/count*100 "% " a;}' | grep -v "./" | column -c3 -s " " -t | sort -nr | nl |  head -n10
-```
-Print all the supported terminal colours and their reference code to use with tput.
-
-```shell
-( x=`tput op` y=`printf %$((${COLUMNS}-6))s`;for i in {0..256};do o=00$i;echo -e ${o:${#o}-3:3} `tput setaf $i;tput setab $i`${y// /=}$x;done; )
-```
-
-## System
-
-Show all the startup applications that are hidden in "startup applications".
-
-```shell
-sudo sed -i "s/NoDisplay=true/NoDisplay=false/g" /etc/xdg/autostart/*.desktop
-```
-
-Quick and dirty way to update system time in Linux if there is any issues with ntp.
-
-```shell
-sudo date -s "$(wget -qSO- --max-redirect=0 google.com 2>&1 | grep Date: | cut -d' ' -f5-8)Z"
-```
-Count the total number of hours of your music in the directory.
-
-```shell
-find . -print0 | xargs -0 -P 40 -n 1 sh -c 'ffmpeg -i "$1" 2>&1 | grep "Duration:" | cut -d " " -f 4 | sed "s/.$//" | tr "." ":"' - | awk -F ':' '{ sum1+=$1; sum2+=$2; sum3+=$3; sum4+=$4; if (sum4 > 100) { sum3+=1; sum4=0 }; if (sum3 > 60) { sum2+=1; sum3=0 }; if (sum2 > 60) { sum1+=1; sum2=0 } if (NR % 100 == 0) { printf "%.0f:%.0f:%.0f.%.0f\n", sum1, sum2, sum3, sum4 } } END { printf "%.0f:%.0f:%.0f.%.0f\n", sum1, sum2, sum3, sum4 }'
-```
 ## Files & Directory
 List only empty directories and delete safely.
 
@@ -88,8 +57,40 @@ List all authors of a git project.
 git log --format='%aN <%aE>' | awk '{arr[$0]++} END{for (i in arr){print arr[i], i;}}' | sort -rn | cut -d ' '  -f2-
 ```
 
-Show a short of important information inline ( include branch info ), and color this log tree.
+Shows a short descriptive information inline including branch details in a coloured log tree.
 
 ```shell
 git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Cblue - %cn %Creset' --abbrev-commit --date=relative
+```
+
+## System
+
+Show all the startup applications that are hidden in "startup applications".
+
+```shell
+sudo sed -i "s/NoDisplay=true/NoDisplay=false/g" /etc/xdg/autostart/*.desktop
+```
+
+Quick and dirty way to update system time in Linux if there is any issues with ntp.
+
+```shell
+sudo date -s "$(wget -qSO- --max-redirect=0 google.com 2>&1 | grep Date: | cut -d' ' -f5-8)Z"
+```
+Count the total number of hours of your music in the directory.
+
+```shell
+find . -print0 | xargs -0 -P 40 -n 1 sh -c 'ffmpeg -i "$1" 2>&1 | grep "Duration:" | cut -d " " -f 4 | sed "s/.$//" | tr "." ":"' - | awk -F ':' '{ sum1+=$1; sum2+=$2; sum3+=$3; sum4+=$4; if (sum4 > 100) { sum3+=1; sum4=0 }; if (sum3 > 60) { sum2+=1; sum3=0 }; if (sum2 > 60) { sum1+=1; sum2=0 } if (NR % 100 == 0) { printf "%.0f:%.0f:%.0f.%.0f\n", sum1, sum2, sum3, sum4 } } END { printf "%.0f:%.0f:%.0f.%.0f\n", sum1, sum2, sum3, sum4 }'
+```
+
+## Terminal
+
+Get top 10 used commands from history.
+
+```shell
+history | awk '{CMD[$2]++;count++;}END { for (a in CMD)print CMD[a] " " CMD[a]/count*100 "% " a;}' | grep -v "./" | column -c3 -s " " -t | sort -nr | nl |  head -n10
+```
+Print all the supported terminal colours and their reference code to use with tput.
+
+```shell
+( x=`tput op` y=`printf %$((${COLUMNS}-6))s`;for i in {0..256};do o=00$i;echo -e ${o:${#o}-3:3} `tput setaf $i;tput setab $i`${y// /=}$x;done; )
 ```
