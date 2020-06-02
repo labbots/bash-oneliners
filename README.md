@@ -2,7 +2,7 @@
 
 <p align="center">
 <a href="https://github.com/labbots/bash-oneliners/blob/master/LICENSE"><img src="https://img.shields.io/github/license/labbots/bash-oneliners.svg?style=for-the-badge" alt="License"></a>
-
+<a href="https://www.codacy.com/manual/labbots/bash-oneliners?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=labbots/bash-oneliners&amp;utm_campaign=Badge_Grade"><img src="https://img.shields.io/codacy/grade/a72b150d9e8b4166996abf8f871c42b0?style=for-the-badge"/></a>
 </p>
 Curated list of useful bash onliner commands and functions.
 
@@ -11,7 +11,6 @@ Curated list of useful bash onliner commands and functions.
 - [System](#system)
 - [Files & Directory](#files--directory)
 - [Git](#git)
-
 
 ## Terminal
 
