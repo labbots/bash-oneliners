@@ -9,6 +9,7 @@ Curated list of useful bash onliner commands and functions.
 ## Table of Contents
 - [Files & Directory](#files--directory)
 - [Git](#git)
+- [Network](#network)
 - [System](#system)
 - [Terminal](#terminal)
 
@@ -61,6 +62,13 @@ Shows a short descriptive information inline including branch details in a colou
 
 ```shell
 git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Cblue - %cn %Creset' --abbrev-commit --date=relative
+```
+
+## Network
+
+Get your public IP address.
+```shell
+curl -s http://checkip.dyndns.org | sed 's/[a-zA-Z<>/ :]//g'
 ```
 
 ## System
